@@ -1,15 +1,20 @@
 # syntax = docker/dockerfile:1
 
-# Use Ruby 3.3.7
-ARG RUBY_VERSION=3.3.7
+ARG RUBY_VERSION=3.3.10
 FROM ruby:$RUBY_VERSION-slim
 
 # Rails app lives here
 WORKDIR /rails
 
-# Install base packages
+# Update this line in your Dockerfile
 RUN apt-get update -qq && \
-    apt-get install --no-install-recommends -y build-essential ca-certificates default-mysql-client default-libmysqlclient-dev git && \
+    apt-get install --no-install-recommends -y \
+    build-essential \
+    ca-certificates \
+    default-mysql-client \
+    default-libmysqlclient-dev \
+    git \
+    libyaml-dev && \
     rm -rf /var/lib/apt/lists /var/cache/apt/archives
 
 # Install application gems
